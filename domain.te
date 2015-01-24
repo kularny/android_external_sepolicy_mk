@@ -175,7 +175,7 @@ neverallow { domain -unconfineddomain -recovery } unlabeled:dir_file_class_set c
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
-neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability sys_ptrace;
+neverallow { domain -debuggerd -vold -dumpstate -system_server -mkta } self:capability sys_ptrace;
 
 # Limit device node creation to these whitelisted domains.
 neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt } self:capability mknod;
@@ -279,6 +279,7 @@ neverallow {
     userdebug_or_eng(`-su')
     -system_server
     -zygote
+    -mkta
 } { file_type -system_file -exec_type }:file execute;
 neverallow {
     domain
